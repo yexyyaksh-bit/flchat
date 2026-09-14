@@ -390,36 +390,27 @@
 
 <!-- Application Logic -->
 <script type="module">
-  // ==========================================
+// ==========================================
   // FIREBASE CONFIGURATION & INITIALIZATION
   // ==========================================
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getDatabase, ref, set, get, onValue, push, update, onDisconnect, serverTimestamp, query, orderByChild, equalTo, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // REPLACE WITH YOUR ACTUAL FIREBASE CONFIG
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  // YOUR EXACT FIREBASE CONFIGURATION
+  const firebaseConfig = {
+    apiKey: "AIzaSyBebFGmnjvJJY-MD2AyDxlpfyrBANf7Z1g",
+    authDomain: "flchatapp-7dbfe.firebaseapp.com",
+    databaseURL: "https://flchatapp-7dbfe-default-rtdb.firebaseio.com",
+    projectId: "flchatapp-7dbfe",
+    storageBucket: "flchatapp-7dbfe.firebasestorage.app",
+    messagingSenderId: "1094889162808",
+    appId: "1:1094889162808:web:01134fe6b06c190c52fecd"
+  };
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBebFGmnjvJJY-MD2AyDxlpfyrBANf7Z1g",
-  authDomain: "flchatapp-7dbfe.firebaseapp.com",
-  databaseURL: "https://flchatapp-7dbfe-default-rtdb.firebaseio.com",
-  projectId: "flchatapp-7dbfe",
-  storageBucket: "flchatapp-7dbfe.firebasestorage.app",
-  messagingSenderId: "1094889162808",
-  appId: "1:1094889162808:web:01134fe6b06c190c52fecd"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
-
   // ==========================================
   // GLOBAL STATE & VARIABLES
   // ==========================================
