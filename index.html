@@ -9,15 +9,13 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#080a0f">
+  <meta name="theme-color" content="#07080b">
 
   <!-- Custom App Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%231a202c'/><stop offset='100%25' stop-color='%230a0d12'/></linearGradient><linearGradient id='neon' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2300F5A0'/><stop offset='100%25' stop-color='%2300A878'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(%23bg)' stroke='%2300A878' stroke-width='4' stroke-opacity='0.4'/><path d='M256 100 C160 100 80 165 80 250 C80 295 105 335 145 362 L125 425 C123 430 128 435 133 432 L205 393 C221 398 238 400 256 400 C352 400 432 335 432 250 C432 165 352 100 256 100 Z' fill='url(%23neon)'/><circle cx='235' cy='225' r='22' fill='%230a0d12'/><circle cx='277' cy='225' r='22' fill='%230a0d12'/><circle cx='235' cy='267' r='22' fill='%230a0d12'/><circle cx='277' cy='267' r='22' fill='%230a0d12'/><circle cx='256' cy='246' r='10' fill='%230a0d12'/><path d='M256 256 Q256 295 285 305' stroke='%230a0d12' stroke-width='7' fill='none' stroke-linecap='round'/></svg>">
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Tone.js for Ringtone -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
   <style>
@@ -39,8 +37,8 @@
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
     input, textarea { user-select: auto; }
 
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -49,7 +47,6 @@
       height: 100vh; color: var(--text-main); overflow: hidden;
     }
 
-    /* Mobile Container by default */
     #app-container {
       width: 100%; max-width: 420px; height: 100vh; max-height: 860px;
       background: var(--bg-dark); position: relative; overflow: hidden;
@@ -111,9 +108,7 @@
       color: var(--text-muted); padding: 5px 14px; border-radius: 30px; font-size: 0.78rem;
       font-weight: 500; cursor: pointer; transition: 0.2s;
     }
-    .pill.active {
-      background: var(--primary-color); color: #020305; font-weight: 600; border-color: transparent;
-    }
+    .pill.active { background: var(--primary-color); color: #020305; font-weight: 600; border-color: transparent; }
 
     /* Side Menu Drawer */
     #side-menu {
@@ -125,8 +120,7 @@
     #side-menu.open { left: 0; }
     .side-menu-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 75;
-      display: none;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 75; display: none;
     }
     .side-menu-overlay.open { display: block; }
     
@@ -145,13 +139,10 @@
     }
     .user-id-box span { font-size: 0.8rem; font-weight: 600; color: var(--primary-color); }
 
-    /* =========================================================
-       INSTAGRAM NOTES CAROUSEL (FIXED PADDING & NO CLIPPING)
-       ========================================================= */
+    /* Notes Carousel */
     .notes-container {
       display: flex; gap: 16px; overflow-x: auto;
-      padding: 22px 15px 14px 15px; /* Added top padding so bubbles don't clip */
-      border-bottom: 1px solid var(--glass-stroke); margin-bottom: 8px;
+      padding: 22px 15px 14px 15px; border-bottom: 1px solid var(--glass-stroke); margin-bottom: 8px;
     }
     .note-item {
       display: flex; flex-direction: column; align-items: center; cursor: pointer;
@@ -161,8 +152,7 @@
       background: var(--surface-light); border: 1px solid var(--glass-stroke);
       border-radius: 12px; padding: 4px 8px; font-size: 0.68rem; max-width: 80px;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      position: absolute; top: -18px; z-index: 5; box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      color: #fff;
+      position: absolute; top: -18px; z-index: 5; box-shadow: 0 4px 12px rgba(0,0,0,0.6); color: #fff;
     }
     .note-bubble::after {
       content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
@@ -175,7 +165,7 @@
     .note-item:hover .note-avatar { transform: scale(1.05); }
     .note-name { font-size: 0.72rem; color: var(--text-muted); margin-top: 5px; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    /* List Items */
+    /* Contacts List Items */
     .list-item {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 14px; margin-bottom: 8px; cursor: pointer;
@@ -203,24 +193,31 @@
     }
     .nav-item.active { color: var(--primary-color); background: rgba(0, 168, 120, 0.08); }
 
-    /* Chat View */
-    #chat-messages { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    /* =========================================================
+       CHAT VIEW (Premium Redesign)
+       ========================================================= */
+    #chat-messages {
+      flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px;
+      /* WhatsApp/Telegram style subtle wallpaper */
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.83-1.66 1.66L53.8 1.66l-1.66 1.66-1.66-1.66L51.31 0h3.317zM17.473 0l.83.83-1.66 1.66-.83-.83-1.66 1.66-1.66-1.66L14.156 0h3.317zM0 17.473l.83.83-1.66 1.66L-.83 19.133l-1.66 1.66-1.66-1.66L0 14.156v3.317zM0 54.627l.83.83-1.66 1.66L-.83 56.287l-1.66 1.66-1.66-1.66L0 51.31v3.317zM54.627 60l.83-.83-1.66-1.66-.83.83-1.66-1.66-1.66 1.66L51.31 60h3.317z' fill='%23ffffff' fill-opacity='0.015' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
     
-    .message-row { display: flex; flex-direction: column; max-width: 78%; position: relative; }
+    .message-row { display: flex; flex-direction: column; position: relative; max-width: 85%; }
     .row-me { align-self: flex-end; align-items: flex-end; }
     .row-other { align-self: flex-start; align-items: flex-start; }
 
     .sender-tag { font-size: 0.7rem; font-weight: 600; margin-bottom: 2px; padding: 0 8px; }
+    
     .message {
-      padding: 10px 15px; border-radius: 18px; word-wrap: break-word; font-size: 0.92rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.25); position: relative; cursor: pointer;
+      padding: 10px 16px; border-radius: 18px; word-wrap: break-word; font-size: 0.95rem; line-height: 1.4;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative;
     }
     .msg-me { background: var(--primary-gradient); color: #020305; border-bottom-right-radius: 4px; }
     .msg-other { background: var(--surface-light); color: var(--text-main); border-bottom-left-radius: 4px; border: 1px solid var(--glass-stroke); }
 
     .quoted-box {
       background: rgba(0,0,0,0.25); border-left: 3px solid var(--primary-color);
-      padding: 4px 8px; border-radius: 8px; margin-bottom: 6px; font-size: 0.75rem; opacity: 0.9;
+      padding: 6px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.75rem; opacity: 0.9;
     }
 
     .msg-meta {
@@ -230,32 +227,37 @@
     .read-tick { color: var(--primary-color); font-weight: bold; }
 
     .reaction-badge {
-      position: absolute; bottom: -8px; right: 8px; background: var(--sidebar-bg);
-      border: 1px solid var(--glass-stroke); border-radius: 50px; font-size: 0.75rem;
-      padding: 1px 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); animation: heartPop 0.3s var(--ease);
+      position: absolute; bottom: -10px; right: 10px; background: var(--chat-bg);
+      border: 1px solid var(--glass-stroke); border-radius: 50px; font-size: 0.8rem;
+      padding: 2px 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); animation: heartPop 0.3s var(--ease);
     }
     .floating-heart {
-      position: absolute; font-size: 2.2rem; pointer-events: none;
-      animation: floatUpFade 0.7s forwards ease-out; z-index: 100;
+      position: absolute; font-size: 2.5rem; pointer-events: none;
+      animation: floatUpFade 0.8s forwards ease-out; z-index: 100;
     }
-    .msg-reply-btn {
-      opacity: 0; transition: opacity 0.2s; font-size: 0.85rem; background: none; border: none;
-      color: var(--text-muted); cursor: pointer; padding: 0 6px;
+
+    /* Action Buttons Next to Messages (Reply & Delete) */
+    .msg-actions { display: flex; gap: 2px; opacity: 0; transition: opacity 0.2s; align-items: center; }
+    .message-row:hover .msg-actions { opacity: 1; }
+    .msg-action-btn {
+      font-size: 0.9rem; background: rgba(255,255,255,0.05); border: none; border-radius: 50%; width: 30px; height: 30px;
+      display: flex; justify-content: center; align-items: center; color: var(--text-muted); cursor: pointer; transition: 0.2s;
     }
-    .message-row:hover .msg-reply-btn { opacity: 1; }
+    .msg-action-btn:hover { background: rgba(255,255,255,0.15); color: #fff; transform: scale(1.1); }
+    .btn-trash:hover { color: var(--danger-color); background: rgba(239, 68, 68, 0.15); }
 
     #reply-preview-bar {
       display: flex; justify-content: space-between; align-items: center;
-      background: var(--sidebar-bg); padding: 8px 16px; border-top: 1px solid var(--glass-stroke);
-      font-size: 0.8rem; border-left: 3px solid var(--primary-color);
+      background: var(--surface-light); padding: 10px 16px; border-top: 1px solid var(--glass-stroke);
+      font-size: 0.8rem; border-left: 4px solid var(--primary-color);
     }
 
     .chat-input-area {
-      display: flex; padding: 12px 16px; background: rgba(13, 17, 23, 0.9); backdrop-filter: blur(15px);
-      gap: 10px; border-top: 1px solid var(--glass-stroke); align-items: center;
+      display: flex; padding: 12px 16px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(15px);
+      gap: 12px; border-top: 1px solid var(--glass-stroke); align-items: center;
     }
-    .chat-input-area input { margin: 0; flex: 1; border-radius: 30px; background: rgba(255,255,255,0.05); }
-    #btn-send-msg { border-radius: 50%; width: 44px; height: 44px; padding: 0; flex-shrink: 0; }
+    .chat-input-area input { margin: 0; flex: 1; border-radius: 30px; background: rgba(255,255,255,0.06); padding: 14px 20px;}
+    #btn-send-msg { border-radius: 50%; width: 48px; height: 48px; padding: 0; flex-shrink: 0; }
 
     /* Active Call Screen */
     #call-screen { z-index: 100; background: #020305; display: flex; flex-direction: column; }
@@ -314,7 +316,7 @@
     @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 
     /* =========================================================
-       DESKTOP PC VIEW: TELEGRAM / DISCORD FULL-SCREEN LAYOUT
+       DESKTOP PC VIEW: Fixed Layout + Width Constraints
        ========================================================= */
     .desktop-placeholder { display: none; }
 
@@ -326,34 +328,27 @@
         border-radius: 0; border: none; box-shadow: none; flex-direction: row;
       }
 
-      /* 1. Left Sidebar (Contacts, Search, Notes) */
+      /* Fixed Sidebar on Left */
       #main-screen {
-        position: relative !important;
-        width: 380px !important;
-        min-width: 380px !important;
-        border-right: 1px solid var(--glass-stroke);
-        display: flex !important;
-        z-index: 10;
-        background: var(--sidebar-bg);
+        position: relative !important; width: 380px !important; min-width: 380px !important;
+        border-right: 1px solid var(--glass-stroke); display: flex !important;
+        z-index: 10; background: var(--sidebar-bg);
       }
       
-      /* 2. Right Panel (Active Chat or Placeholder) */
+      /* Chat Area limits Bubble Width to prevent super-long stretch */
       #chat-view {
-        position: relative !important;
-        flex: 1 !important;
-        z-index: 10;
-        background: var(--chat-bg);
+        position: relative !important; flex: 1 !important; z-index: 10; background: var(--chat-bg);
       }
+      .message-row { max-width: 550px; } /* Stops bubbles from stretching across wide monitors */
       #btn-back-chat { display: none; }
 
       .desktop-placeholder {
         display: flex !important; flex: 1; justify-content: center; align-items: center; flex-direction: column;
         background: var(--chat-bg); z-index: 5; text-align: center;
-        background-image: radial-gradient(circle at center, rgba(0, 168, 120, 0.05) 0%, transparent 70%);
+        background-image: radial-gradient(circle at center, rgba(0, 168, 120, 0.04) 0%, transparent 70%);
       }
       #app-container:has(#chat-view:not(.hidden)) .desktop-placeholder { display: none !important; }
 
-      /* Fullscreen overlays */
       #auth-screen, #profile-setup-screen, #call-screen, #loading-screen {
         position: absolute; width: 100%; height: 100%; z-index: 300; border-radius: 0;
       }
@@ -378,23 +373,20 @@
         <span style="font-size:0.8rem;">📋</span>
       </div>
     </div>
-    
     <div style="flex: 1; display:flex; flex-direction:column; gap:10px;">
       <button id="btn-menu-new-group" class="btn-primary" style="background: var(--surface-light); color:var(--text-main); box-shadow:none; border: 1px solid var(--glass-stroke);">👥 Create New Group</button>
       <button id="btn-menu-add-friend" class="btn-primary" style="background: var(--surface-light); color:var(--text-main); box-shadow:none; border: 1px solid var(--glass-stroke);">➕ Add Friend</button>
     </div>
-
     <button id="btn-logout" class="btn-primary" style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger-color); color: var(--danger-color); box-shadow:none;">Log Out</button>
     <button id="btn-close-menu" style="background: none; border: none; color: var(--text-muted); cursor: pointer; margin-top: 10px; padding: 6px;">Close</button>
   </div>
 
-  <!-- Loading Splash Screen -->
   <div id="loading-screen" class="screen" style="justify-content: center; align-items: center;">
     <div style="font-size: 3.5rem; animation: pulse 1.5s infinite ease-in-out;">🟢</div>
     <h3 style="margin-top: 15px; color: var(--text-muted); font-weight: 500;">Connecting...</h3>
   </div>
 
-  <!-- 1. LEFT PANEL: Main Dashboard (Always Left on PC) -->
+  <!-- 1. LEFT PANEL: Main Dashboard -->
   <div id="main-screen" class="screen hidden">
     <div class="header">
       <div style="display:flex; align-items:center; gap:10px;">
@@ -407,19 +399,14 @@
       </div>
     </div>
 
-    <!-- Live Search Bar -->
     <div style="padding: 12px 15px 8px 15px;">
       <input type="text" id="contact-search" placeholder="🔍 Search conversations..." style="margin-bottom: 4px; border-radius: 14px; padding: 10px 14px; font-size:0.85rem;">
     </div>
-
-    <!-- Filter Pills (All / Direct / Groups) -->
     <div class="filter-pills">
       <div class="pill active" data-filter="all">All</div>
       <div class="pill" data-filter="direct">Direct</div>
       <div class="pill" data-filter="groups">Groups</div>
     </div>
-
-    <!-- Instagram Notes Carousel (Fixed Clipping) -->
     <div class="notes-container" id="instagram-notes-list">
       <div class="note-item" id="btn-create-note">
         <div class="note-bubble" id="my-note-text">Share note</div>
@@ -428,16 +415,13 @@
       </div>
     </div>
 
-    <!-- Content Tabs -->
     <div class="content-area" id="tab-home" style="padding-top: 0;">
       <div id="contacts-list"></div>
     </div>
-    
     <div class="content-area hidden" id="tab-requests">
       <h4 style="margin-bottom: 12px; color: var(--text-muted);">Incoming Friend Requests</h4>
       <div id="requests-list"></div>
     </div>
-
     <div class="content-area hidden" id="tab-calls">
       <h4 style="margin-bottom: 12px; color: var(--text-muted);">Call History</h4>
       <div id="call-logs-list"></div>
@@ -450,7 +434,7 @@
     </div>
   </div>
 
-  <!-- 2. RIGHT PANEL: Active Chat View (Right on PC) -->
+  <!-- 2. RIGHT PANEL: Active Chat View -->
   <div id="chat-view" class="screen hidden">
     <div class="header">
       <button id="btn-back-chat" class="icon-btn" style="margin-right: 10px;">◀</button>
@@ -464,7 +448,6 @@
       <div class="header-actions">
         <button id="btn-call-voice" class="icon-btn" title="Voice Call">📞</button>
         <button id="btn-call-video" class="icon-btn" title="Video Call">🎥</button>
-        <button id="btn-clear-chat" class="icon-btn" title="Clear Chat">🗑️</button>
       </div>
     </div>
     
@@ -485,14 +468,14 @@
     </div>
   </div>
 
-  <!-- 3. Desktop Empty State Placeholder (Right on PC when no chat selected) -->
+  <!-- Desktop Placeholder -->
   <div class="desktop-placeholder" id="desktop-placeholder">
     <div style="font-size: 5rem; filter: drop-shadow(0 10px 20px rgba(0, 168, 120, 0.4));">💬</div>
     <h2 style="margin-top: 15px; font-size: 2rem;">Fets Luck Chats</h2>
     <p style="color: var(--text-muted); margin-top: 5px;">Select a conversation on the left to start chatting.</p>
   </div>
 
-  <!-- Auth Screen -->
+  <!-- Modals & Screens -->
   <div id="auth-screen" class="screen hidden">
     <div class="content-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
       <div style="width: 100%; max-width: 320px;">
@@ -507,7 +490,6 @@
     </div>
   </div>
 
-  <!-- Profile Setup Screen -->
   <div id="profile-setup-screen" class="screen hidden">
     <div class="content-area" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
       <div style="width: 100%; max-width: 320px;">
@@ -521,38 +503,33 @@
     </div>
   </div>
 
-  <!-- Modal: Create Group -->
   <div id="modal-create-group" class="modal-overlay hidden">
     <div class="modal-content">
       <h3 style="text-align: center; margin-bottom: 5px;">New Group Chat</h3>
       <p style="text-align: center; margin-bottom: 15px; font-size: 0.8rem; color: var(--text-muted);">Chat with multiple friends</p>
       <input type="text" id="group-name-input" placeholder="Group Name (e.g. Squad 🔥)" maxlength="25">
       <input type="text" id="group-emoji-input" placeholder="Group Emoji Icon (e.g. 🚀, ⚡)" maxlength="2">
-      
       <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">Select Friends to Add:</p>
       <div id="group-friends-select-list" style="max-height: 140px; overflow-y:auto; margin-bottom:15px;"></div>
-      
       <button id="btn-submit-create-group" class="btn-primary" style="margin-bottom: 8px;">Create Group</button>
       <button class="btn-close-modal" style="width: 100%; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 6px;">Cancel</button>
     </div>
   </div>
 
-  <!-- Modal: Post Instagram Note -->
   <div id="modal-edit-note" class="modal-overlay hidden">
     <div class="modal-content">
       <h3 style="text-align: center; margin-bottom: 5px;">Share a Note 💭</h3>
-      <p style="text-align: center; margin-bottom: 18px; font-size: 0.8rem; color: var(--text-muted);">Visible for 24 hours to your contacts</p>
-      <input type="text" id="note-input-text" placeholder="What's on your mind? (e.g. Listening to music 🎧)" maxlength="60">
+      <p style="text-align: center; margin-bottom: 18px; font-size: 0.8rem; color: var(--text-muted);">Visible for 24 hours</p>
+      <input type="text" id="note-input-text" placeholder="What's on your mind?" maxlength="60">
       <button id="btn-save-note" class="btn-primary" style="margin-bottom: 8px;">Share Note</button>
       <button class="btn-close-modal" style="width: 100%; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 8px;">Cancel</button>
     </div>
   </div>
 
-  <!-- Modal: Add Friend -->
   <div id="modal-add-friend" class="modal-overlay hidden">
     <div class="modal-content">
       <h3 style="text-align: center; margin-bottom: 5px;">Add Friend</h3>
-      <p style="text-align: center; margin-bottom: 18px; font-size: 0.85rem; color: var(--text-muted);">Enter their 4-digit User ID</p>
+      <p style="text-align: center; margin-bottom: 18px; font-size: 0.85rem; color: var(--text-muted);">Enter 4-digit User ID</p>
       <input type="text" id="add-friend-id" placeholder="ar-xxxx" style="text-align: center; font-size: 1.1rem; letter-spacing: 1px;">
       <button id="btn-send-request" class="btn-primary" style="margin-bottom: 8px;">Send Friend Request</button>
       <button class="btn-close-modal" style="width: 100%; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 8px;">Cancel</button>
@@ -560,7 +537,6 @@
     </div>
   </div>
 
-  <!-- Modal: Incoming Call -->
   <div id="modal-incoming-call" class="modal-overlay hidden">
     <div class="modal-content" style="text-align: center;">
       <div style="font-size: 3rem; margin-bottom: 10px;">📲</div>
@@ -573,17 +549,14 @@
     </div>
   </div>
 
-  <!-- Active Call Screen -->
   <div id="call-screen" class="screen hidden">
     <video id="remote-video" autoplay playsinline></video>
     <video id="local-video" autoplay playsinline muted></video>
-    
     <div id="voice-call-ui" class="voice-call-avatar hidden">
       <img id="voice-call-dp" src="" alt="avatar">
       <h2 id="voice-call-name" style="margin-top: 15px;">User</h2>
       <p style="color: var(--primary-color);">Voice Call Connected</p>
     </div>
-
     <div class="call-controls">
       <button id="btn-toggle-mute" class="call-btn" style="background: rgba(255,255,255,0.2);">🎙️</button>
       <button id="btn-end-call" class="call-btn btn-end">📞</button>
@@ -596,7 +569,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getDatabase, ref, set, get, onValue, push, update, onDisconnect, serverTimestamp, query, orderByChild, equalTo, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getDatabase, ref, set, get, onValue, push, update, onDisconnect, serverTimestamp, query, orderByChild, equalTo, onChildAdded, onChildRemoved, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBebFGmnjvJJY-MD2AyDxlpfyrBANf7Z1g",
@@ -620,6 +593,9 @@
   let activeFilter = 'all';
   let myContactsList = [];
   
+  // FIX: Track active database listeners to prevent duplicates
+  let activeChatListeners = []; 
+  
   // WebRTC
   let peerConnection = null;
   let localStream = null;
@@ -632,7 +608,6 @@
   // Tone.js
   let synth = null;
   let ringtoneLoop = null;
-
   const servers = { iceServers: [{ urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'] }] };
 
   const $ = id => document.getElementById(id);
@@ -733,7 +708,7 @@
           show($('profile-setup-screen'));
         }
       } catch (err) {
-        showToast("Database error. Check rules.");
+        showToast("Database error.");
       }
     } else {
       currentUser = null;
@@ -799,7 +774,7 @@
   }
 
   // ==========================================
-  // SIDE MENU TOGGLES
+  // UI NAVIGATION
   // ==========================================
   $('btn-open-menu').onclick = () => {
     $('side-menu').classList.add('open');
@@ -815,9 +790,6 @@
   $('btn-menu-new-group').onclick = () => { closeMenu(); show($('modal-create-group')); populateGroupFriendsList(); };
   $('btn-menu-add-friend').onclick = () => { closeMenu(); show($('modal-add-friend')); };
 
-  // ==========================================
-  // MAIN DASHBOARD & NOTES
-  // ==========================================
   function initMainApp(userData) {
     hide($('auth-screen'));
     hide($('profile-setup-screen'));
@@ -828,11 +800,7 @@
     $('menu-bio').innerText = userData.bio;
     $('menu-id').innerText = userData.userId;
 
-    $('menu-copy-id').onclick = () => {
-      navigator.clipboard.writeText(userData.userId);
-      showToast("User ID Copied!");
-    };
-
+    $('menu-copy-id').onclick = () => { navigator.clipboard.writeText(userData.userId); showToast("User ID Copied!"); };
     $('my-note-avatar').src = userData.dpUrl;
     $('btn-create-note').onclick = () => show($('modal-edit-note'));
 
@@ -865,6 +833,7 @@
 
   $('contact-search').addEventListener('input', applyFilter);
 
+  // Instagram Notes
   $('btn-save-note').onclick = async () => {
     const noteText = $('note-input-text').value.trim();
     if (!noteText) return;
@@ -921,22 +890,12 @@
   });
 
   $('btn-logout').onclick = () => signOut(auth);
-
-  $('btn-show-add-friend').onclick = () => {
-    $('add-friend-id').value = '';
-    $('add-friend-msg').innerText = '';
-    show($('modal-add-friend'));
-  };
-
-  $('btn-modal-group').onclick = () => {
-    show($('modal-create-group'));
-    populateGroupFriendsList();
-  };
-  
+  $('btn-show-add-friend').onclick = () => { $('add-friend-id').value = ''; $('add-friend-msg').innerText = ''; show($('modal-add-friend')); };
+  $('btn-modal-group').onclick = () => { show($('modal-create-group')); populateGroupFriendsList(); };
   document.querySelectorAll('.btn-close-modal').forEach(b => b.onclick = (e) => hide(e.target.closest('.modal-overlay')));
 
   // ==========================================
-  // GROUP CHATS SYSTEM
+  // GROUP CHAT CREATION
   // ==========================================
   function populateGroupFriendsList() {
     const list = $('group-friends-select-list');
@@ -948,10 +907,7 @@
     myContactsList.forEach(c => {
       const div = document.createElement('div');
       div.className = 'select-member-item';
-      div.innerHTML = `
-        <span style="font-size:0.85rem;">${c.name}</span>
-        <input type="checkbox" value="${c.uid}">
-      `;
+      div.innerHTML = `<span style="font-size:0.85rem;">${c.name}</span><input type="checkbox" value="${c.uid}">`;
       list.appendChild(div);
     });
   }
@@ -971,15 +927,7 @@
     const groupId = groupRef.key;
     const dpUrl = emojiToSVG(emoji);
 
-    await set(groupRef, {
-      id: groupId,
-      name,
-      emoji,
-      dpUrl,
-      admin: currentUser.uid,
-      members,
-      createdAt: Date.now()
-    });
+    await set(groupRef, { id: groupId, name, emoji, dpUrl, admin: currentUser.uid, members, createdAt: Date.now() });
 
     for (let uid of Object.keys(members)) {
       await set(ref(db, `userGroups/${uid}/${groupId}`), true);
@@ -1003,7 +951,6 @@
         container.innerHTML = '<p style="text-align:center; margin-top:30px; color:var(--text-muted);">No conversations yet.<br>Click ➕ to add friends or 👥+ to start a group!</p>';
         return;
       }
-
       snap.forEach(child => {
         const friendUid = child.key;
         get(ref(db, `users/${friendUid}`)).then(uSnap => {
@@ -1048,7 +995,6 @@
         get(ref(db, `groups/${groupId}`)).then(gSnap => {
           if (!gSnap.exists()) return;
           const g = gSnap.val();
-
           const div = document.createElement('div');
           div.className = 'list-item item-group';
           div.dataset.type = 'group';
@@ -1073,14 +1019,10 @@
   $('btn-send-request').onclick = async () => {
     const targetId = $('add-friend-id').value.trim();
     if (!targetId) return;
-
     const snap = await get(ref(db, `userIdMap/${targetId}`));
     if (snap.exists()) {
       const targetUid = snap.val();
-      if (targetUid === currentUser.uid) {
-        $('add-friend-msg').innerText = "You cannot add yourself!";
-        return;
-      }
+      if (targetUid === currentUser.uid) return $('add-friend-msg').innerText = "You cannot add yourself!";
       await set(ref(db, `requests/${targetUid}/${currentUser.uid}`), { from: currentUser.uid, timestamp: serverTimestamp() });
       $('add-friend-msg').innerText = "Friend request sent!";
       $('add-friend-msg').style.color = "var(--primary-color)";
@@ -1125,9 +1067,16 @@
   window.rejectRequest = async uid => await remove(ref(db, `requests/${currentUser.uid}/${uid}`));
 
   // ==========================================
-  // UNIFIED CHAT LOGIC
+  // UNIFIED CHAT LOGIC (BUG FIX: REMOVED DUPLICATES)
   // ==========================================
+  function clearChatListeners() {
+    activeChatListeners.forEach(unsub => unsub());
+    activeChatListeners = [];
+  }
+
   async function openChat(config) {
+    clearChatListeners(); // FIX: Memory leak removed here!
+    
     currentChat = config;
     $('chat-header-name').innerText = config.name;
     $('chat-header-dp').src = config.dpUrl;
@@ -1142,12 +1091,26 @@
 
     if (config.isGroup) {
       $('chat-header-status').innerText = `${Object.keys(config.members || {}).length} members`;
-
-      onChildAdded(query(ref(db, `groupMessages/${config.groupId}`), orderByChild('timestamp')), snap => {
+      const groupMsgsRef = ref(db, `groupMessages/${config.groupId}`);
+      
+      activeChatListeners.push(onChildAdded(query(groupMsgsRef, orderByChild('timestamp')), snap => {
         const msg = snap.val();
         displayMessage(msg, snap.key, true);
         if (msg.sender !== currentUser.uid) playMessageDing();
-      });
+      }));
+
+      activeChatListeners.push(onChildRemoved(groupMsgsRef, snap => {
+        const el = document.getElementById(`row-${snap.key}`);
+        if(el) el.remove();
+      }));
+
+      activeChatListeners.push(onValue(groupMsgsRef, snap => {
+        if(!snap.exists()) return;
+        snap.forEach(m => {
+          const badge = document.getElementById(`reaction-${m.key}`);
+          if(badge) badge.style.display = m.val().liked ? 'block' : 'none';
+        });
+      }));
 
     } else {
       const chatId = getChatId(currentUser.uid, config.friendUid);
@@ -1155,8 +1118,9 @@
 
       const metaSnap = await get(ref(db, `userChats/${currentUser.uid}/${chatId}`));
       const clearedAt = metaSnap.exists() ? metaSnap.val().clearedAt : 0;
+      const msgsRef = ref(db, `messages/${chatId}`);
 
-      onChildAdded(query(ref(db, `messages/${chatId}`), orderByChild('timestamp')), snap => {
+      activeChatListeners.push(onChildAdded(query(msgsRef, orderByChild('timestamp')), snap => {
         const msg = snap.val();
         if (msg.timestamp >= clearedAt) {
           displayMessage(msg, snap.key, false);
@@ -1165,9 +1129,14 @@
             update(ref(db, `messages/${chatId}/${snap.key}`), { read: true });
           }
         }
-      });
+      }));
 
-      onValue(ref(db, `messages/${chatId}`), snap => {
+      activeChatListeners.push(onChildRemoved(msgsRef, snap => {
+        const el = document.getElementById(`row-${snap.key}`);
+        if(el) el.remove();
+      }));
+
+      activeChatListeners.push(onValue(msgsRef, snap => {
         if(!snap.exists()) return;
         snap.forEach(m => {
           const k = m.key;
@@ -1177,20 +1146,21 @@
           const tick = document.getElementById(`tick-${k}`);
           if(tick && val.read) { tick.innerText = '✓✓'; tick.className = 'read-tick'; }
         });
-      });
+      }));
 
-      onValue(ref(db, `typing/${chatId}/${config.friendUid}`), snap => {
+      activeChatListeners.push(onValue(ref(db, `typing/${chatId}/${config.friendUid}`), snap => {
         snap.val() ? show($('typing-indicator')) : hide($('typing-indicator'));
-      });
+      }));
       
-      onValue(ref(db, `status/${config.friendUid}`), snap => {
+      activeChatListeners.push(onValue(ref(db, `status/${config.friendUid}`), snap => {
         const isOnline = snap.val()?.state === 'online';
         $('chat-header-status').innerText = isOnline ? 'Active Now' : formatLastSeen(snap.val()?.last_changed);
-      });
+      }));
     }
   }
 
   $('btn-back-chat').onclick = () => {
+    clearChatListeners(); // Disconnect cleanly
     currentChat = null;
     hide($('chat-view'));
     show($('main-screen'));
@@ -1232,6 +1202,9 @@
   };
 
   function displayMessage(msg, key, isGroup) {
+    // Prevent rendering same message twice if already exists
+    if(document.getElementById(`row-${key}`)) return; 
+
     const isMe = msg.sender === currentUser.uid;
     const row = document.createElement('div');
     row.className = `message-row ${isMe ? 'row-me' : 'row-other'}`;
@@ -1252,17 +1225,25 @@
     }
 
     const tick = (isMe && !isGroup) ? (msg.read ? '<span class="read-tick">✓✓</span>' : '<span>✓</span>') : '';
+    
+    // UI: Added the Delete Trash Button
+    const actionsHtml = `
+      <div class="msg-actions">
+        <button class="msg-action-btn" onclick="startReply('${key}', '${msg.text.replace(/'/g, "\\'")}', '${isMe ? 'You' : msg.senderName}')">↩</button>
+        ${isMe ? `<button class="msg-action-btn btn-trash" onclick="deleteMessage('${key}', ${isGroup})">🗑️</button>` : ''}
+      </div>
+    `;
 
     row.innerHTML = `
       ${senderTagHtml}
       <div style="display:flex; align-items:center; gap:6px;">
-        ${!isMe ? `<button class="msg-reply-btn" onclick="startReply('${key}', '${msg.text.replace(/'/g, "\\'")}', '${msg.senderName}')">↩</button>` : ''}
+        ${!isMe ? actionsHtml : ''}
         <div class="message ${isMe ? 'msg-me' : 'msg-other'}" id="bubble-${key}">
           ${replyHtml}
           <span>${msg.text}</span>
           <div class="reaction-badge" id="reaction-${key}" style="display: ${msg.liked ? 'block' : 'none'};">❤️</div>
         </div>
-        ${isMe ? `<button class="msg-reply-btn" onclick="startReply('${key}', '${msg.text.replace(/'/g, "\\'")}', 'You')">↩</button>` : ''}
+        ${isMe ? actionsHtml : ''}
       </div>
       <div class="msg-meta">
         <span>${formatTime(msg.timestamp)}</span>
@@ -1312,15 +1293,19 @@
     $('chat-input').focus();
   };
 
+  function cancelReply() { activeReplyTo = null; hide($('reply-preview-bar')); }
   $('btn-cancel-reply').onclick = cancelReply;
-  function cancelReply() {
-    activeReplyTo = null;
-    hide($('reply-preview-bar'));
-  }
+
+  // FIX: Delete Specific Message
+  window.deleteMessage = async (key, isGroup) => {
+    if (!confirm("Delete this message for everyone?")) return;
+    const path = isGroup ? `groupMessages/${currentChat.groupId}/${key}` : `messages/${currentChat.chatId}/${key}`;
+    await remove(ref(db, path));
+  };
 
   $('btn-clear-chat').onclick = async () => {
     if (!currentChat || currentChat.isGroup) return alert("Chat history clearing is for Direct Messages.");
-    if (!confirm("Clear chat history?")) return;
+    if (!confirm("Clear chat history locally?")) return;
     await set(ref(db, `userChats/${currentUser.uid}/${currentChat.chatId}/clearedAt`), Date.now());
     $('chat-messages').innerHTML = '';
   };
@@ -1332,8 +1317,7 @@
   $('btn-call-video').onclick = () => startCall('video');
 
   async function startCall(type) {
-    callType = type;
-    callRole = 'caller';
+    callType = type; callRole = 'caller';
     activeCallId = getChatId(currentUser.uid, currentChat.friendUid) + '_' + Date.now();
     callStartTime = Date.now();
 
@@ -1344,7 +1328,6 @@
       localStream = await navigator.mediaDevices.getUserMedia({ video: type === 'video', audio: true });
       $('local-video').srcObject = localStream;
       peerConnection = new RTCPeerConnection(servers);
-
       localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream));
       peerConnection.ontrack = e => $('remote-video').srcObject = e.streams[0];
 
@@ -1352,8 +1335,7 @@
       await peerConnection.setLocalDescription(offer);
 
       await set(ref(db, `calls/${activeCallId}`), {
-        caller: currentUser.uid, callee: currentChat.friendUid, type, status: 'calling',
-        offer: { type: offer.type, sdp: offer.sdp }
+        caller: currentUser.uid, callee: currentChat.friendUid, type, status: 'calling', offer: { type: offer.type, sdp: offer.sdp }
       });
 
       onChildAdded(ref(db, `calls/${activeCallId}/calleeCandidates`), s => peerConnection.addIceCandidate(new RTCIceCandidate(s.val())));
@@ -1362,50 +1344,33 @@
       });
       peerConnection.onicecandidate = e => { if (e.candidate) push(ref(db, `calls/${activeCallId}/callerCandidates`), e.candidate.toJSON()); };
       onValue(ref(db, `calls/${activeCallId}/status`), s => { if (s.val() === 'ended') endCallLocal(); });
-
-    } catch (e) {
-      alert("Media permission denied.");
-      endCallLocal();
-    }
+    } catch (e) { alert("Media permission denied."); endCallLocal(); }
   }
 
   function listenForIncomingCalls() {
     onChildAdded(query(ref(db, 'calls'), orderByChild('callee'), equalTo(currentUser.uid)), async snap => {
       const call = snap.val();
       if (call.status === 'calling') {
-        activeCallId = snap.key;
-        callRole = 'callee';
-        callType = call.type;
-        callStartTime = Date.now();
-
+        activeCallId = snap.key; callRole = 'callee'; callType = call.type; callStartTime = Date.now();
         const uSnap = await get(ref(db, `users/${call.caller}`));
         const caller = uSnap.val();
 
         $('incoming-caller-name').innerText = caller ? caller.name : 'Unknown User';
         $('incoming-call-type').innerText = callType === 'video' ? 'Incoming Video Call' : 'Incoming Voice Call';
         
-        show($('modal-incoming-call'));
-        startRingtone();
+        show($('modal-incoming-call')); startRingtone();
 
         onValue(ref(db, `calls/${activeCallId}/status`), s => {
-          if (s.val() === 'ended') {
-            stopRingtone();
-            hide($('modal-incoming-call'));
-            logCall(call.caller, callType, 'missed', 0);
-          }
+          if (s.val() === 'ended') { stopRingtone(); hide($('modal-incoming-call')); logCall(call.caller, callType, 'missed', 0); }
         });
       }
     });
   }
 
   $('btn-accept-call').onclick = async () => {
-    stopRingtone();
-    hide($('modal-incoming-call'));
-    show($('call-screen'));
-
+    stopRingtone(); hide($('modal-incoming-call')); show($('call-screen'));
     const callSnap = await get(ref(db, `calls/${activeCallId}`));
     const call = callSnap.val();
-
     const uSnap = await get(ref(db, `users/${call.caller}`));
     const caller = uSnap.val();
     setupCallScreenUI(callType, caller.name, caller.dpUrl);
@@ -1414,7 +1379,6 @@
       localStream = await navigator.mediaDevices.getUserMedia({ video: callType === 'video', audio: true });
       $('local-video').srcObject = localStream;
       peerConnection = new RTCPeerConnection(servers);
-
       localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream));
       peerConnection.ontrack = e => $('remote-video').srcObject = e.streams[0];
 
@@ -1427,45 +1391,26 @@
       onChildAdded(ref(db, `calls/${activeCallId}/callerCandidates`), s => peerConnection.addIceCandidate(new RTCIceCandidate(s.val())));
       peerConnection.onicecandidate = e => { if (e.candidate) push(ref(db, `calls/${activeCallId}/calleeCandidates`), e.candidate.toJSON()); };
       onValue(ref(db, `calls/${activeCallId}/status`), s => { if (s.val() === 'ended') endCallLocal(); });
-
-    } catch (e) {
-      endCallLocal();
-    }
+    } catch (e) { endCallLocal(); }
   };
 
   function setupCallScreenUI(type, name, dp) {
     if (type === 'voice') {
-      hide($('remote-video'));
-      hide($('local-video'));
-      show($('voice-call-ui'));
-      $('voice-call-dp').src = dp;
-      $('voice-call-name').innerText = name;
+      hide($('remote-video')); hide($('local-video')); show($('voice-call-ui'));
+      $('voice-call-dp').src = dp; $('voice-call-name').innerText = name;
     } else {
-      show($('remote-video'));
-      show($('local-video'));
-      hide($('voice-call-ui'));
+      show($('remote-video')); show($('local-video')); hide($('voice-call-ui'));
     }
   }
 
-  $('btn-reject-call').onclick = async () => {
-    stopRingtone();
-    hide($('modal-incoming-call'));
-    if (activeCallId) await update(ref(db, `calls/${activeCallId}`), { status: 'ended' });
-  };
-
-  $('btn-end-call').onclick = async () => {
-    if (activeCallId) await update(ref(db, `calls/${activeCallId}`), { status: 'ended' });
-    endCallLocal();
-  };
+  $('btn-reject-call').onclick = async () => { stopRingtone(); hide($('modal-incoming-call')); if (activeCallId) await update(ref(db, `calls/${activeCallId}`), { status: 'ended' }); };
+  $('btn-end-call').onclick = async () => { if (activeCallId) await update(ref(db, `calls/${activeCallId}`), { status: 'ended' }); endCallLocal(); };
 
   function endCallLocal() {
     if (peerConnection) peerConnection.close();
     if (localStream) localStream.getTracks().forEach(t => t.stop());
-    hide($('call-screen'));
-    $('remote-video').srcObject = null;
-    $('local-video').srcObject = null;
-    peerConnection = null;
-    localStream = null;
+    hide($('call-screen')); $('remote-video').srcObject = null; $('local-video').srcObject = null;
+    peerConnection = null; localStream = null;
 
     if (activeCallId && callStartTime) {
       const dur = Math.floor((Date.now() - callStartTime)/1000);
@@ -1477,38 +1422,26 @@
 
   $('btn-toggle-mute').onclick = () => {
     if (localStream) {
-      const t = localStream.getAudioTracks()[0];
-      t.enabled = !t.enabled;
+      const t = localStream.getAudioTracks()[0]; t.enabled = !t.enabled;
       $('btn-toggle-mute').style.background = t.enabled ? 'rgba(255,255,255,0.2)' : 'var(--danger-color)';
     }
   };
 
-  function logCall(otherUid, type, direction, duration) {
-    push(ref(db, `callLogs/${currentUser.uid}`), { otherUid, type, direction, duration, timestamp: Date.now() });
-  }
+  function logCall(otherUid, type, direction, duration) { push(ref(db, `callLogs/${currentUser.uid}`), { otherUid, type, direction, duration, timestamp: Date.now() }); }
 
   function loadCallLogs() {
     onValue(query(ref(db, `callLogs/${currentUser.uid}`), orderByChild('timestamp')), snap => {
-      const container = $('call-logs-list');
-      container.innerHTML = '';
-      const logs = [];
-      snap.forEach(c => logs.unshift(c.val()));
-
+      const container = $('call-logs-list'); container.innerHTML = '';
+      const logs = []; snap.forEach(c => logs.unshift(c.val()));
       if (logs.length === 0) return container.innerHTML = '<p style="text-align:center; color: var(--text-muted);">No calls logged yet.</p>';
 
       logs.forEach(log => {
         get(ref(db, `users/${log.otherUid}`)).then(uSnap => {
           if (!uSnap.exists()) return;
           const u = uSnap.val();
-          const div = document.createElement('div');
-          div.className = 'list-item';
+          const div = document.createElement('div'); div.className = 'list-item';
           const icon = log.direction === 'missed' ? '❌' : (log.direction === 'outgoing' ? '↗️' : '↙️');
-          div.innerHTML = `
-            <div class="item-info">
-              <img src="${u.dpUrl}">
-              <div class="item-text"><h3>${u.name}</h3><p>${icon} ${log.type} call • ${log.duration}s</p></div>
-            </div>
-          `;
+          div.innerHTML = `<div class="item-info"><img src="${u.dpUrl}"><div class="item-text"><h3>${u.name}</h3><p>${icon} ${log.type} call • ${log.duration}s</p></div></div>`;
           container.appendChild(div);
         });
       });
@@ -1516,29 +1449,14 @@
   }
 
   // Draggable Video
-  const dragEl = $('local-video');
-  let isDragging = false, startX, startY, initX, initY;
-  const startDrag = (e) => {
-    isDragging = true;
-    startX = e.clientX || e.touches[0].clientX;
-    startY = e.clientY || e.touches[0].clientY;
-    initX = dragEl.offsetLeft;
-    initY = dragEl.offsetTop;
-  };
-  const doDrag = (e) => {
-    if (!isDragging) return;
-    dragEl.style.left = (initX + (e.clientX || e.touches[0].clientX) - startX) + 'px';
-    dragEl.style.top = (initY + (e.clientY || e.touches[0].clientY) - startY) + 'px';
-    dragEl.style.right = 'auto';
-  };
+  const dragEl = $('local-video'); let isDragging = false, startX, startY, initX, initY;
+  const startDrag = (e) => { isDragging = true; startX = e.clientX || e.touches[0].clientX; startY = e.clientY || e.touches[0].clientY; initX = dragEl.offsetLeft; initY = dragEl.offsetTop; };
+  const doDrag = (e) => { if (!isDragging) return; dragEl.style.left = (initX + (e.clientX || e.touches[0].clientX) - startX) + 'px'; dragEl.style.top = (initY + (e.clientY || e.touches[0].clientY) - startY) + 'px'; dragEl.style.right = 'auto'; };
   const stopDrag = () => isDragging = false;
 
-  dragEl.addEventListener('mousedown', startDrag);
-  dragEl.addEventListener('touchstart', startDrag, { passive: true });
-  document.addEventListener('mousemove', doDrag);
-  document.addEventListener('touchmove', doDrag, { passive: true });
-  document.addEventListener('mouseup', stopDrag);
-  document.addEventListener('touchend', stopDrag);
+  dragEl.addEventListener('mousedown', startDrag); dragEl.addEventListener('touchstart', startDrag, { passive: true });
+  document.addEventListener('mousemove', doDrag); document.addEventListener('touchmove', doDrag, { passive: true });
+  document.addEventListener('mouseup', stopDrag); document.addEventListener('touchend', stopDrag);
 </script>
 </body>
 </html>
